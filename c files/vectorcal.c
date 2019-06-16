@@ -1,7 +1,7 @@
 #include "stdint.h"
 #include "stdio.h"
 #include "sineLUT.h"
-#include "TrigPrint.h"
+#include "vectorcal.h"
 
 #define FIX14_SHIFT 14
 #define FIXU_SHIFT 16
@@ -20,7 +20,7 @@ int8_t power(int8_t base, int8_t exp){
     return(r);
 }
 
-int16_t d2bin(int dNum) //decimal til binær funktion
+int16_t d2bin(int dNum) //decimal til binÃ¦r funktion
 {
     int16_t binNum = 0;
     int16_t rem, temp = 1;
