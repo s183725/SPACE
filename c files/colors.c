@@ -1,11 +1,10 @@
 
-/*
 
 #include "stm32f30x_conf.h"
 
 void setLED(int8_t a){
 
-/*
+
 //PA9 (blue)
 RCC->AHBENR |= RCC_AHBPeriph_GPIOA;
  // Set pin PA1 to output
@@ -16,15 +15,15 @@ RCC->AHBENR |= RCC_AHBPeriph_GPIOA;
  GPIOA->OTYPER |= (0x0000 << (a)); // Set output type register (0x00 -
  //Push pull, 0x01 - Open drain)
  GPIOA->MODER &= ~(0x00000003 << (a * 2)); // Clear mode register
- GPIOA->MODER |= (0x00000001 << (a * 2)); // Set mode register (0x00 –
+ GPIOA->MODER |= (0x00000001 << (a * 2)); // Set mode register (0x00 â€“
  //Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out)
 
 GPIOA->ODR |= (0x0000 << a); //Set pin PA1 to high
-*/
 
 
 
-/*
+
+
 //PB4 (red)
 RCC->AHBENR |= RCC_AHBPeriph_GPIOB;
 
@@ -35,15 +34,12 @@ GPIOB->OTYPER &= ~(0x0001 << (a)); // Clear output type register
 GPIOB->OTYPER |= (0x0000 << (a)); // Set output type register (0x00 -
 //Push pull, 0x01 - Open drain)
 GPIOB->MODER &= ~(0x00000003 << (a * 2)); // Clear mode register
-GPIOB->MODER |= (0x00000001 << (a * 2)); // Set mode register (0x00 –
+GPIOB->MODER |= (0x00000001 << (a * 2)); // Set mode register (0x00 â€“
 //Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out)
 
 GPIOB->ODR |= (0x0000 << a); //Set pin PA1 to high
-*/
+ 
 
-
-
-/*
 //PC7 (green)
 RCC->AHBENR |= RCC_AHBPeriph_GPIOC;
 
@@ -54,31 +50,30 @@ GPIOC->OTYPER &= ~(0x0001 << (a)); // Clear output type register
 GPIOC->OTYPER |= (0x0000 << (a)); // Set output type register (0x00 -
 //Push pull, 0x01 - Open drain)
 GPIOC->MODER &= ~(0x00000003 << (a * 2)); // Clear mode register
-GPIOC->MODER |= (0x00000001 << (a * 2)); // Set mode register (0x00 –
+GPIOC->MODER |= (0x00000001 << (a * 2)); // Set mode register (0x00 â€“
 //Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out)
 
 GPIOC->ODR |= (0x0000 << a); //Set pin PA1 to high
-*/
-
-
-
-
-/*
 }
 
 
-void turnLEDon(int8_t a){
+void turnLEDon(bool red, bool green, bool blue){ //SÃ¦tter LED til
 
 
 //PA9 (blue)
-//GPIOA->ODR |= (0x0000 << a); //Set pin PA1 to high
-
+ if (blue == true) {
+//GPIOA->ODR |= (0x0000 << 9);
+ }
+  
 //PB4 (red)
-//GPIOB->ODR |= (0x0000 << a); //Set pin PA1 to high
-
+if (red == true) {
+//GPIOB->ODR |= (0x0000 << 4);
+}
+ 
 //PC7 (green)
-GPIOC->ODR |= (0x0000 << a); //Set pin PA1 to high
-
+if (green == true) {
+GPIOC->ODR |= (0x0000 << 7);
+}
+ 
 }
 
-*/
