@@ -1,6 +1,6 @@
 #include "stm32f30x_conf.h"
 #include "30010_io.h"
-
+//
 #define RCC_AHBPeriph_GPIOA               RCC_AHBENR_GPIOAEN
 #define RCC_AHBPeriph_GPIOB               RCC_AHBENR_GPIOAEN
 #define RCC_AHBPeriph_GPIOC               RCC_AHBENR_GPIOAEN
