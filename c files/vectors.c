@@ -55,17 +55,17 @@ void initVector(VECTOR *v, int16_t x, int16_t y) {
     (*v).y = y;
 }
 
-void buildVector(){
+VECTOR buildVector(){
     VECTOR v;
 
     v.x = 0;
     v.y = 0;
 
-    return v:
+    return v;
 }
 
 void rotateVector(VECTOR *v, int32_t angle) {
-    int32_t x, y, a, b, cosV, sinV;
+    int32_t x, y, cosV, sinV;
     x = (*v).x;
     y = (*v).y;
     cosV = fCos(angle);
@@ -86,7 +86,7 @@ void rotateVector(VECTOR *v, int32_t angle) {
 
 VECTOR vectorDIR(VECTOR *v, int32_t angle){
 
-    return v;
+    return *v;
 }
 
 void vectorTurn(VECTOR *v, char dir){
@@ -94,6 +94,4 @@ void vectorTurn(VECTOR *v, char dir){
 
 
 }
-
-
 
