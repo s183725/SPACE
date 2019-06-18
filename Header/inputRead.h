@@ -1,19 +1,6 @@
-
-/*
-**
-**                           Main.c
-**
-**
-**********************************************************************/
-/*
-   Last committed:     $Revision: 00 $
-   Last changed by:    $Author: $
-   Last changed date:  $Date:  $
-   ID:                 $Id:  $
-
-**********************************************************************/
 #include "stdio.h"
 #include "stdint.h"
+#include "30010_io.h"
 
 
 uint8_t rawIN();
