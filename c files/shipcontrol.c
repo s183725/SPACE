@@ -1,50 +1,46 @@
 #include "inputRead.h"
+#include "stdbool.h"
+#include "vectors.h"
+#include "directional.h"
 
-//Functions to expand
-uint8_t ship_wasd() {
-    wasdIN();
+void buildShip (){
+    VECTOR ship_V;
+    initVector(&ship_V, 3, 0);
 }
 
-uint8_t ship_wep() {
-    numIN();
+void updateShip(VECTOR *v, REF_P *p){
+
+    (*p).x = ((*v).x) + ((*p).x);
+    (*p).y = ((*v).y) + ((*p).y);
 }
 
-uint8_t ship_shoot() {
-    spaceIN();
+void directShip(int32_t init, int32_t dVAL, VECTOR ship_V, REF_P ship_P){
+
+    int32_t tVAL = turnVAL();
+    dVAL = dirVAL(init, dVAL, tVAL);
+    directionVector(dVAL, &ship_V);
+    updateShip(&ship_V, &ship_P);
 }
 
-char directCTRL(void) {
 
-    char inKey;
+void controlShip(int32_t init, VECTOR ship_V, REF_P ship_P){
 
-    switch (wasdIN())
-    {
-    case 119: // w forward
-        return inKey = 'w';
-    case 115: // s intended dampener
-        return inKey = 's';
-    case 97: // a for anti-clockwise rotation
-        return inKey = 'a';
-    case 100: // d for clockwise rotation
-        return inKey = 'd';
+    int32_t tVAL = turnVAL();
+
+    if (tVAL == 1){
+        rotateVector(&ship_V, 45);
+    } else if(tVAL == -1) {
+        rotateVector(&ship_V, -45);
     }
+    //scaleVector();
+    //int32_t accelVAL = wsVAL();
+    //accelVector(ship_V, accelVAL);
 
-    switch(numIN())
-    {
-    case 49: // char 1
-        return inKey = '1';
-    case 50: // char 2
-        return inKey = '2';
-    case 51: // char 3
-        return inKey = '3';
-    case 52: // char 4
-        return inKey = '4';
-    }
 
-    switch(rawIN())
-    {
-    case 32:
-        return inKey = ' ';
-    }
+
+
+       // directionArray(turnVAL);
+       // directionVector(tVAL);
 
 }
+

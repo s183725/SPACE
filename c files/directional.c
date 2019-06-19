@@ -2,15 +2,10 @@
 #include "stdbool.h"
 #include "vectors.h"
 
-int32_t initial = 1;
-
 int32_t turnVAL(){
     uint8_t ch;
     int16_t tVAL;
-    //ch = uart_get_char();  // skal læser input fra A og D
-
-    ch = 97;
-    char character = ch;
+    ch = uart_get_char();  // skal læser input fra A og D
 
     switch(ch) //at dreje moduret svarer til 1
     {
@@ -24,15 +19,7 @@ int32_t turnVAL(){
 }
 
 void rotVAL(int32_t turnVAL){
-    uint32_t rVAL, initVAL;
-    //uint8_t *dirArray[16] = {(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 )};
-    //if(turnVAL() == )
-    if (initVAL != 0){
-        initVAL = 0;
-        rVAL = 0;
-    } else {
-        initVAL = 1;
-    }
+    int rVAL;
 
     if (turnVAL == 1) {
         //rVAL = (45 >> 1);
@@ -43,29 +30,29 @@ void rotVAL(int32_t turnVAL){
     }
     return rVAL;
 }
+/*
+turnVAL
 
-int32_t dirVAL(int32_t turnVAL){
-    int32_t dVAL;
-    int8_t active;
+int32_t dir = 0 + turnVAL() + dir;
 
-    if (initial > 0) {
-        initial = 0;
-        dVAL = 0;
+if (dir < 16 || dir < - 16 )
+     dir = 0
+*/
+int32_t dirVAL(int8_t init, int32_t dVAL, int32_t turnVAL){
+
+    if (turnVAL == 1) {
+        dVAL = dVAL + 1;
+        if( dVAL > 15){ // Accounts for above radians
+             dVAL = dVAL - 15;
+        }
+    } else if (turnVAL < 0) {
+         dVAL = dVAL - 1;
+         if ( dVAL < 0) {
+             dVAL = dVAL + 15;
+         }
+    } else if (turnVAL == 0) {
+         dVAL = dVAL + 0;
     }
-
-        if (turnVAL == 1) {
-            dVAL += 1;
-        } else if (turnVAL == -1) {
-            dVAL -= 1;
-        } else if (turnVAL == 0) {
-            dVAL = 0;
-        }
-
-        if(dVAL > 15){ // Accounts for above radians
-            dVAL -= 15;
-        } else if (dVAL < 0) {
-            dVAL += 15;
-        }
 
     return dVAL;
 }
@@ -111,53 +98,52 @@ void directionArray(int32_t turnVAL){
 
 void directionVector(int32_t dVAL, VECTOR *v){
 
-    switch(dVAL){
-    case 0:
+    if(dVAL == 0) {
         (*v).x = 3;
         (*v).y = 0;
-    case 1:
+    } else if (dVAL == 1) {
         (*v).x = 2;
         (*v).y = 1;
-    case 2:
-        (*v).x = 1;
-        (*v).y = 1;
-    case 3:
+    } else if (dVAL == 2) {
+        (*v).x = 2;
+        (*v).y = 2;
+    } else if (dVAL == 3) {
         (*v).x = 1;
         (*v).y = 2;
-    case 4:
+    } else if (dVAL == 4) {
         (*v).x = 0;
         (*v).y = 3;
-    case 5:
+    } else if (dVAL == 5) {
         (*v).x = -1;
         (*v).y = 2;
-    case 6:
-        (*v).x = -1;
-        (*v).y = 1;
-    case 7:
+    } else if (dVAL == 6) {
+        (*v).x = -2;
+        (*v).y = 2;
+    } else if (dVAL == 7) {
         (*v).x = -2;
         (*v).y = 1;
-    case 8:
+    } else if (dVAL == 8) {
         (*v).x = -3;
         (*v).y = 0;
-    case 9:
+    } else if (dVAL == 9) {
         (*v).x = -2;
         (*v).y = -1;
-    case 10:
-        (*v).x = -1;
-        (*v).y = -1;
-    case 11:
+    } else if (dVAL == 10) {
+        (*v).x = -2;
+        (*v).y = -2;
+    } else if (dVAL == 11) {
         (*v).x = -1;
         (*v).y = -2;
-    case 12:
+    } else if (dVAL == 12) {
         (*v).x = 0;
         (*v).y = -3;
-    case 13:
+    } else if (dVAL == 13) {
         (*v).x = 1;
         (*v).y = -2;
-    case 14:
-        (*v).x = 1;
-        (*v).y = -1;
-    case 15:
+    } else if (dVAL == 14) {
+        (*v).x = 2;
+        (*v).y = -2;
+    } else if (dVAL == 15) {
         (*v).x = 2;
         (*v).y = -1;
     }
@@ -166,6 +152,19 @@ void directionVector(int32_t dVAL, VECTOR *v){
 void rawDirection(){
 
 }
+
+int32_t wsVAL(){
+    uint8_t dir = rawIN();
+
+    switch(dir){
+    case 119:     // W
+        return 1;
+    case 115:   // S
+        return 0;
+    }
+}
+
+
 
 /*
 void direction(VECTOR *v){
