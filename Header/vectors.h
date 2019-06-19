@@ -12,8 +12,8 @@ typedef struct vectorS {
 } VECTOR;
 
 typedef struct referencepoint {
-    int16_t x, y;
-} REFP;
+    int32_t x, y;
+} REF_P;
 
 void scaleVector(VECTOR *v);
 
@@ -27,5 +27,8 @@ int32_t fCos(int32_t angle);
 void initVector(VECTOR *v, int16_t x, int16_t y);
 VECTOR buildVector();
 void rotateVector(VECTOR *v, int32_t angle);
+VECTOR accelVector(VECTOR *v, int32_t accelVAL);
+void updateREF_P(VECTOR *v, REF_P *p);
+
 
 #endif /* _VECTORS_H_ */

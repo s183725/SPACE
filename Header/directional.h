@@ -8,7 +8,7 @@ void rotVAL(int32_t turnVal);
 
 int32_t dirVAL();
 
-void directionVector(int32_t dVAL,VECTOR *v);
+void directionVector(int32_t dVAL, VECTOR *v);
 
 void rawDirection();
 
