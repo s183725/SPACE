@@ -4,22 +4,21 @@
 
 int32_t turnVAL(){ // A and D input register
     int32_t tVAL;
-    uint8_t ch;
-    ch = uart_get_char();  // skal læser input fra A og D
+     volatile uint8_t ch = uart_get_char();  // skal læser input fra A og D
 
     switch(ch) //at dreje moduret svarer til 1
     {
     case 97:
-        return tVAL = 1;
-    case 100:
         return tVAL = -1;
+    case 100:
+        return tVAL = 1;
     default:
         return tVAL = 0;
     }
 }
 
 int32_t wsVAL(){  // w and s key input
-    uint8_t dir = rawIN();
+    volatile uint8_t dir = rawIN();
 
     switch(dir){
     case 119:     // W
@@ -104,7 +103,7 @@ void directionArray(int32_t turnVAL){
 int32_t directionVector(int32_t dVAL, int32_t *vx, int32_t *vy){    // CASE STATEMENTS FFOR directionVEctor
 
     if(dVAL == 0) {
-        *vx = 3;
+        *vx = 2;
         *vy = 0;
     } else if (dVAL == 1) {
         *vx = 2;
@@ -117,7 +116,7 @@ int32_t directionVector(int32_t dVAL, int32_t *vx, int32_t *vy){    // CASE STAT
         *vy = 2;
     } else if (dVAL == 4) {
         *vx = 0;
-        *vy = 3;
+        *vy = 2;
     } else if (dVAL == 5) {
         *vx = -1;
         *vy = 2;
@@ -128,7 +127,7 @@ int32_t directionVector(int32_t dVAL, int32_t *vx, int32_t *vy){    // CASE STAT
         *vx = -2;
         *vy = 1;
     } else if (dVAL == 8) {
-        *vx = -3;
+        *vx = -2;
         *vy = 0;
     } else if (dVAL == 9) {
         *vx = -2;
@@ -141,7 +140,7 @@ int32_t directionVector(int32_t dVAL, int32_t *vx, int32_t *vy){    // CASE STAT
         *vy = -2;
     } else if (dVAL == 12) {
         *vx = 0;
-        *vy = -3;
+        *vy = -2;
     } else if (dVAL == 13) {
         *vx = 1;
         *vy = -2;

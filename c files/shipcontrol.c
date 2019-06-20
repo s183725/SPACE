@@ -20,7 +20,7 @@ int32_t moveShip(int32_t w, int32_t *vx, int32_t *vy, int32_t *px, int32_t *py){
     return w;
 }
 
-int32_t shipUpdate(int32_t spdVAL, VECTOR *ship_V, REF_P *ship_P){ //updates ship position laterally
+int32_t shipUpdate(int32_t volatile spdVAL, VECTOR *ship_V, REF_P *ship_P){ //updates ship position laterally
 
     int32_t vx = (*ship_V).x;
     int32_t vy = (*ship_V).y;
@@ -35,10 +35,11 @@ int32_t shipUpdate(int32_t spdVAL, VECTOR *ship_V, REF_P *ship_P){ //updates shi
     (*ship_P).x = px;
     (*ship_P).y = py;
 
+
     return spdVAL;
 }
 
-int32_t shipTurn(int32_t dVAL, VECTOR *ship_V){ //turns ship from A and D input around its own axis
+int32_t shipTurn(volatile int32_t dVAL, VECTOR *ship_V){ //turns ship from A and D input around its own axis
 
     int32_t vx = (*ship_V).x;
     int32_t vy = (*ship_V).y;

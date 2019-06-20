@@ -3,7 +3,7 @@
 #include "stdlib.h"
 #include "sineLUT.h"
 #include  "vectors.h"
-
+#include "Math.h"
 
 
 
@@ -26,7 +26,7 @@ int8_t power(int32_t base, int32_t exp){  // power function for multiple uses
     return(r);
 }
 
-void scaleMovingVector(VECTOR *v){
+void scaleMovingVector(VECTOR *v){ //scales rotating vector
     if(abs((*v).x) < 3){
         (*v).x = FIX14_MULT((*v).x,2);
     }
@@ -38,15 +38,15 @@ void scaleMovingVector(VECTOR *v){
 
 
 
-int32_t FIX14_MULT(int32_t a, int32_t b){
+int32_t FIX14_MULT(int32_t a, int32_t b){ //FIX Point mulitiplication
     return ((a)*(b)) >> FIX14_SHIFT;
 }
 
-int32_t FIX14_DIV(int32_t a, int32_t b){
+int32_t FIX14_DIV(int32_t a, int32_t b){ //Fix point division
     return (((a) << FIX14_SHIFT) / b);
 }
 
-void printFix(int32_t i) {
+void printFix(int32_t i) { //For printing sine and cosine ## Works only with expand(() ##
     //Prints a signed 16,16 fixed point number
     if((i & 0x80000000) != 0) { //Handle negative numbers
         printf("-");
@@ -103,9 +103,14 @@ VECTOR buildVector(){ //builds null vector for utility
     return v;
 }
 
-void cpyVector(VECTOR *v){
+VECTOR cpyVector(VECTOR *v){ //Copies vector
+    VECTOR cpy;
+     cpy.x = (*v).x;
+     cpy.y = (*v).y;
 
 }
+
+
 /*
 int32_t accelVector(int32_t spdVAL, VECTOR *v, VECTOR *ship_SPD){  //returns vector and keeping direction vector intact
     //(*v).x = FIX14_MULT(((*v).x),accelVAL);
@@ -129,14 +134,14 @@ void rotateVector(VECTOR *v, int32_t angle) { //rotates a vector
     (*v).y = FIX14_MULT(y,cosV) + (FIX14_MULT(x,sinV));
 }
 
+VECTOR vectorP2P(int32_t p0x, int32_t p0y, int32_t p1x, int32_t p1y){
+    VECTOR v;
+    v.x = p1x - p0x;
+    v.y = p1y - p0y;
 
-void vectorTurn(VECTOR *v, char dir){
-
+    return v;
 }
 
-void vectorlength (){
-
-}
 
 void updateREF_P(VECTOR *v, REF_P *p){  // update updates point p by adding vector v
 

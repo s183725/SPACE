@@ -32,7 +32,7 @@ VECTOR buildVector();
 void rotateVector(VECTOR *v, int32_t angle);
 void accelVector(int32_t spdVAL, VECTOR *v, VECTOR *ship_SPD);
 void updateREF_P(VECTOR *v, REF_P *p);
-
+int32_t vectorlength(VECTOR *v);
 
 #endif /* _VECTORS_H_ */
 
