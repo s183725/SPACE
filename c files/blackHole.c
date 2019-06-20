@@ -1,18 +1,22 @@
-
+#include "vectors.h"
+#include "directional.h"
+#include "shipcontrol.h"
 #include "blackhole.h"
 
-void blackHole_ship(REF_P *P){
-    int r = 34;
+void blackHole_ship(REF_P *ship_P, VECTOR *ship_V){
+    int r = 50;
     REF_P hole;
-    hole.x = 40;
-    hole.y = 30;
+    hole.x = 50;
+    hole.y = -25;
 
-    if (power(r, 2) >= power(ship_P.x - hole.x, 2) + power(ship_P.y - hole.y, 2)){
-            ship_P.x + (hole.x - ship_P.x);
-            ship_P.y + (hole.y - ship_P.y);
+    int32_t eval = power((*ship_P).x - hole.x, 2) + power((*ship_P).y - hole.y, 2);
+    if (power(r, 2) >= eval){
+            (*ship_P).x = (*ship_P).x + (hole.x - (*ship_P).x);
+            (*ship_P).y = (*ship_P).y + (hole.y - (*ship_P).y);
     }
 }
 
+/*
 REF_P blackHole_projectile(REF_P projectile_P){
     uint8_t r;
     REF_P hole;
@@ -26,7 +30,7 @@ REF_P blackHole_projectile(REF_P projectile_P){
     return projectile_P;
 }
 
-
+*/
 
 
 
