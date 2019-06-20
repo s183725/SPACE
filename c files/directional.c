@@ -1,10 +1,10 @@
 #include "inputRead.h"
-#include "stdbool.h"
 #include "vectors.h"
+#include "directional.h"
 
-int32_t turnVAL(){
+int32_t turnVAL(){ // A and D input register
+    int32_t tVAL;
     uint8_t ch;
-    int16_t tVAL;
     ch = uart_get_char();  // skal læser input fra A og D
 
     switch(ch) //at dreje moduret svarer til 1
@@ -18,6 +18,20 @@ int32_t turnVAL(){
     }
 }
 
+int32_t wsVAL(){  // w and s key input
+    uint8_t dir = rawIN();
+
+    switch(dir){
+    case 119:     // W
+        return 1;
+    case 115:   // S
+        return -1;
+    default:
+        return 0;
+    }
+}
+
+/*
 void rotVAL(int32_t turnVAL){
     int rVAL;
 
@@ -29,39 +43,29 @@ void rotVAL(int32_t turnVAL){
         rVAL == 0;
     }
     return rVAL;
-}
-/*
-turnVAL
+}*/
 
-int32_t dir = 0 + turnVAL() + dir;
 
-if (dir < 16 || dir < - 16 )
-     dir = 0
-*/
-int32_t dirVAL(int8_t init, int32_t dVAL, int32_t turnVAL){
+int32_t dirVAL(int32_t dVAL, int32_t tVAL){  // used for addition of input wASD
 
-    if (turnVAL == 1) {
+    if (tVAL == 1) {
         dVAL = dVAL + 1;
         if( dVAL > 15){ // Accounts for above radians
              dVAL = dVAL - 15;
         }
-    } else if (turnVAL < 0) {
+    } else if (tVAL < 0) {
          dVAL = dVAL - 1;
          if ( dVAL < 0) {
              dVAL = dVAL + 15;
          }
-    } else if (turnVAL == 0) {
+    } else if (tVAL == 0) {
          dVAL = dVAL + 0;
     }
 
     return dVAL;
 }
 
-void dmem(int32_t a){
-    int8_t dVAL2;
-}
-
-
+/*
 void directionArray(int32_t turnVAL){
     VECTOR dirV[16] = {
         {3,0},
@@ -94,76 +98,80 @@ void directionArray(int32_t turnVAL){
 
     return (*dArray_p);
 }
+*/
 
 
-void directionVector(int32_t dVAL, VECTOR *v){
+int32_t directionVector(int32_t dVAL, int32_t *vx, int32_t *vy){    // CASE STATEMENTS FFOR directionVEctor
 
     if(dVAL == 0) {
-        (*v).x = 3;
-        (*v).y = 0;
+        *vx = 3;
+        *vy = 0;
     } else if (dVAL == 1) {
-        (*v).x = 2;
-        (*v).y = 1;
+        *vx = 2;
+        *vy = 1;
     } else if (dVAL == 2) {
-        (*v).x = 2;
-        (*v).y = 2;
+        *vx = 2;
+        *vy = 2;
     } else if (dVAL == 3) {
-        (*v).x = 1;
-        (*v).y = 2;
+        *vx = 1;
+        *vy = 2;
     } else if (dVAL == 4) {
-        (*v).x = 0;
-        (*v).y = 3;
+        *vx = 0;
+        *vy = 3;
     } else if (dVAL == 5) {
-        (*v).x = -1;
-        (*v).y = 2;
+        *vx = -1;
+        *vy = 2;
     } else if (dVAL == 6) {
-        (*v).x = -2;
-        (*v).y = 2;
+        *vx = -2;
+        *vy = 2;
     } else if (dVAL == 7) {
-        (*v).x = -2;
-        (*v).y = 1;
+        *vx = -2;
+        *vy = 1;
     } else if (dVAL == 8) {
-        (*v).x = -3;
-        (*v).y = 0;
+        *vx = -3;
+        *vy = 0;
     } else if (dVAL == 9) {
-        (*v).x = -2;
-        (*v).y = -1;
+        *vx = -2;
+        *vy = -1;
     } else if (dVAL == 10) {
-        (*v).x = -2;
-        (*v).y = -2;
+        *vx = -2;
+        *vy = -2;
     } else if (dVAL == 11) {
-        (*v).x = -1;
-        (*v).y = -2;
+        *vx = -1;
+        *vy = -2;
     } else if (dVAL == 12) {
-        (*v).x = 0;
-        (*v).y = -3;
+        *vx = 0;
+        *vy = -3;
     } else if (dVAL == 13) {
-        (*v).x = 1;
-        (*v).y = -2;
+        *vx = 1;
+        *vy = -2;
     } else if (dVAL == 14) {
-        (*v).x = 2;
-        (*v).y = -2;
+        *vx = 2;
+        *vy = -2;
     } else if (dVAL == 15) {
-        (*v).x = 2;
-        (*v).y = -1;
+        *vx = 2;
+        *vy = -1;
     }
+    return dVAL;
 }
 
-void rawDirection(){
+int32_t accelVAL(int32_t spdVAL, int32_t fwdVAL){ //Velocity constant functions
 
-}
-
-int32_t wsVAL(){
-    uint8_t dir = rawIN();
-
-    switch(dir){
-    case 119:     // W
-        return 1;
-    case 115:   // S
-        return 0;
+    if (fwdVAL == 1) {
+        if(spdVAL > 1){
+            spdVAL = 2;
+        } else {
+            spdVAL = spdVAL + 1;
+         // Accounts for above radians
+        }
     }
-}
 
+    if (fwdVAL < 0){
+        spdVAL = 0;
+    }
+
+    return spdVAL;
+}
 
 
 /*

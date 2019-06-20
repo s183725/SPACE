@@ -1,46 +1,55 @@
 #include "inputRead.h"
-#include "stdbool.h"
 #include "vectors.h"
 #include "directional.h"
+#include "shipcontrol.h"
 
-void buildShip (){
+void buildShip (){ // creates a ship vector
     VECTOR ship_V;
     initVector(&ship_V, 3, 0);
 }
 
-void updateShip(VECTOR *v, REF_P *p){
+int32_t moveShip(int32_t w, int32_t *vx, int32_t *vy, int32_t *px, int32_t *py){ //determintes new position of ship coordinates px and py
 
-    (*p).x = ((*v).x) + ((*p).x);
-    (*p).y = ((*v).y) + ((*p).y);
+
+   // (*ship_P).x = FIX14_MULT((*ship_V).x, spdVAL) + (*ship_P).x;
+   // (*ship_P).y = FIX14_MULT((*ship_V).y, spdVAL) + (*ship_P).y;
+
+    *px = (*vx)*w + *px;
+    *py = (*vy)*w + *py;
+
+    return w;
 }
 
-void directShip(int32_t init, int32_t dVAL, VECTOR ship_V, REF_P ship_P){
+int32_t shipUpdate(int32_t spdVAL, VECTOR *ship_V, REF_P *ship_P){ //updates ship position laterally
 
-    int32_t tVAL = turnVAL();
-    dVAL = dirVAL(init, dVAL, tVAL);
-    directionVector(dVAL, &ship_V);
-    updateShip(&ship_V, &ship_P);
+    int32_t vx = (*ship_V).x;
+    int32_t vy = (*ship_V).y;
+
+    int32_t px = (*ship_P).x;
+    int32_t py = (*ship_P).y;
+
+    int32_t fwdVAL = wsVAL();
+    spdVAL = accelVAL(spdVAL, fwdVAL);
+    spdVAL = moveShip(spdVAL, &vx, &vy, &px, &py);
+
+    (*ship_P).x = px;
+    (*ship_P).y = py;
+
+    return spdVAL;
 }
 
+int32_t shipTurn(int32_t dVAL, VECTOR *ship_V){ //turns ship from A and D input around its own axis
 
-void controlShip(int32_t init, VECTOR ship_V, REF_P ship_P){
+    int32_t vx = (*ship_V).x;
+    int32_t vy = (*ship_V).y;
 
     int32_t tVAL = turnVAL();
+    dVAL = dirVAL(dVAL, tVAL);
+    dVAL = directionVector(dVAL, &vx, &vy);
 
-    if (tVAL == 1){
-        rotateVector(&ship_V, 45);
-    } else if(tVAL == -1) {
-        rotateVector(&ship_V, -45);
-    }
-    //scaleVector();
-    //int32_t accelVAL = wsVAL();
-    //accelVector(ship_V, accelVAL);
+    (*ship_V).x = vx;
+    (*ship_V).y = vy;
 
-
-
-
-       // directionArray(turnVAL);
-       // directionVector(tVAL);
-
+    return dVAL;
 }
 

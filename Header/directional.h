@@ -1,26 +1,14 @@
 #include "inputRead.h"
-#include "stdbool.h"
 #include "vectors.h"
 
-uint8_t turnVAL();
+int32_t turnVAL();
 
 void rotVAL(int32_t turnVal);
 
-int32_t dirVAL();
+int32_t dirVAL(int32_t dVAL, int32_t tVAL);
 
-void directionVector(int32_t dVAL, VECTOR *v);
+int32_t directionVector(int32_t dVAL, int32_t *vx, int32_t *vy);
 
 void rawDirection();
 
-/*
-void direction(VECTOR *v){
-    uint8_t nDIR;
-    nDIR = nDIR + turnVAL();
-    if tVAL(tVAL < 16){
-        tVAL = 0;
-    } else {
-    switch()
-    case 0:
-    }
-}
-*/
+int32_t accelVAL(int32_t spdVAL, int32_t fwdVAL);
