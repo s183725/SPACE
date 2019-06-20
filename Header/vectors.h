@@ -7,6 +7,9 @@
 
 #define FIX14_SHIFT 14
 
+
+
+
 typedef struct vectorS {
     int32_t x, y;
 } VECTOR;
@@ -27,8 +30,11 @@ int32_t fCos(int32_t angle);
 void initVector(VECTOR *v, int16_t x, int16_t y);
 VECTOR buildVector();
 void rotateVector(VECTOR *v, int32_t angle);
-VECTOR accelVector(VECTOR *v, int32_t accelVAL);
+void accelVector(int32_t spdVAL, VECTOR *v, VECTOR *ship_SPD);
 void updateREF_P(VECTOR *v, REF_P *p);
 
 
 #endif /* _VECTORS_H_ */
+
+
+
