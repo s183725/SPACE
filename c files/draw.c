@@ -15,13 +15,21 @@ void draw(uint8_t x, uint8_t y, uint8_t color){
 
 }
 
-/*
+
 void erase_old_draw(uint8_t oldX, uint8_t oldY, uint8_t lim, uint8_t offsetX, uint8_t offsetY){
     int8_t x1,y1,x2,i,j; //oldX/oldY = refX/refY, lim = size of loop
 
     x1=x2=oldX-offsetX;
     y1=oldY-offsetY;
+    //gotoyx(x1,y1);
 
+    fgcolor(0);
+    for(i=0; i<11; i++){
+        gotoyx(x1, y1+i);
+        printf("           ");
+    }
+
+/*
     for(i=0; i<lim; i++){
         for(j=0; j<lim; j++){
 
@@ -31,10 +39,12 @@ void erase_old_draw(uint8_t oldX, uint8_t oldY, uint8_t lim, uint8_t offsetX, ui
         x1=x2;
         y1++;
     }
+*/
+    //fgcolor(15);
 //Skal kaldes før refX/Y for skib/skud opdateres
 
 }
-*/
+
 
 void drawShot(uint8_t x, uint8_t y, uint8_t c_array){
    int8_t x1,y1,x2,i,j;
@@ -462,79 +472,79 @@ void drawSpaceship(uint8_t x, uint8_t y, uint8_t c_direction, uint8_t c_array){
 }
 
 
-void cSpaceship(uint8_t x, uint8_t y, uint8_t cc){
+void cSpaceship(uint8_t x, uint8_t y, int32_t cc){
 
-       if (cc == 1){
+       if (cc == 0){
           drawSpaceship(x,y,1,1);
        }
 
-       else if (cc == 2){
+       else if (cc == 15){
           drawSpaceship(x,y,1,4);
        }
 
-       else if (cc == 3){
+       else if (cc == 14){
           drawSpaceship(x,y,3,2);
        }
 
-       else if (cc == 4){
+       else if (cc == 13){
           drawSpaceship(x,y,3,3);
        }
 
-       else if (cc == 5){
+       else if (cc == 12){
           drawSpaceship(x,y,3,1);
        }
 
 
-       else if (cc == 6){
+       else if (cc == 11){
           drawSpaceship(x,y,2,3);
        }
 
 
-       else if (cc == 7){
+       else if (cc == 10){
           drawSpaceship(x,y,2,2);
        }
 
 
-       else if (cc == 8){
+       else if (cc == 9){
           drawSpaceship(x,y,3,4);
        }
 
 
-       else if (cc == 9){
+       else if (cc == 8){
           drawSpaceship(x,y,2,1);
        }
 
 
-       else if (cc == 10){
+       else if (cc == 7){
           drawSpaceship(x,y,2,4);
        }
 
-       else if (cc == 11){
+       else if (cc == 6){
           drawSpaceship(x,y,4,2);
        }
 
 
-       else if (cc == 12){
+       else if (cc == 5){
           drawSpaceship(x,y,4,3);
        }
 
 
-       else if (cc == 13){
+       else if (cc == 4){
           drawSpaceship(x,y,4,1);
        }
 
 
-       else if (cc == 14){
+       else if (cc == 3){
           drawSpaceship(x,y,1,3);
        }
 
 
-       else if (cc == 15){
+       else if (cc == 2){
           drawSpaceship(x,y,1,2);
        }
 
 
-       else if (cc == 16){
+       else if (cc == 1){
           drawSpaceship(x,y,4,4);
        }
 

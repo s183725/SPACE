@@ -93,5 +93,5 @@ char directCTRL(void) {
     case 32:
         return inKey = ' ';
     }
-
 }
+
