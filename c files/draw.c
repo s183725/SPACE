@@ -8,9 +8,9 @@
 void draw(uint8_t x, uint8_t y, uint8_t color){
 
     gotoyx(y,x);
-    bgcolor(color);
+    //bgcolor(color);
     putchar(32); //or uart_put_char
-    bgcolor(0);
+    //bgcolor(0);
 
 
 }
@@ -21,15 +21,15 @@ void erase_old_draw(uint8_t oldX, uint8_t oldY, uint8_t lim, uint8_t offsetX, ui
 
     x1=x2=oldX-offsetX;
     y1=oldY-offsetY;
-    //gotoyx(x1,y1);
 
-    fgcolor(0);
-    for(i=0; i<11; i++){
+    /*
+    fgcolor(4);
+    for(i=0; i<lim; i++){
         gotoyx(x1, y1+i);
-        printf("           ");
+        printf("l l l l l l l");
     }
 
-/*
+*/
     for(i=0; i<lim; i++){
         for(j=0; j<lim; j++){
 
@@ -39,8 +39,8 @@ void erase_old_draw(uint8_t oldX, uint8_t oldY, uint8_t lim, uint8_t offsetX, ui
         x1=x2;
         y1++;
     }
-*/
-    //fgcolor(15);
+
+    fgcolor(15);
 //Skal kaldes før refX/Y for skib/skud opdateres
 
 }
@@ -91,6 +91,7 @@ void drawShot(uint8_t x, uint8_t y, uint8_t c_array){
         y1++;
         }
 
+    bgcolor(0);
 }
 
 
@@ -215,8 +216,9 @@ void drawAsteroid(uint8_t x, uint8_t y){
         y1++;
         }
 
-
+    bgcolor(0);
 }
+
 
 void drawBlackhole(uint8_t x, uint8_t y){
    int8_t x1,y1,x2,i,j;
@@ -273,7 +275,7 @@ void drawBlackhole(uint8_t x, uint8_t y){
         y1++;
         }
 
-
+    bgcolor(0);
 }
 
 
@@ -282,9 +284,10 @@ void drawSpaceship(uint8_t x, uint8_t y, uint8_t c_direction, uint8_t c_array){
    x1=x2=x-4;
    y1=y-4;
 
+    bgcolor(7);
 
     int SS1[10][10]={
-        {0, 7, 7, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 7, 7, 0, 0, 0, 0, 0, 0, 0},
         {1, 7, 7, 7, 7, 7, 0, 0, 0, 0},
         {1, 7, 7, 3, 3, 3, 7, 7, 0, 0},
@@ -293,7 +296,7 @@ void drawSpaceship(uint8_t x, uint8_t y, uint8_t c_direction, uint8_t c_array){
         {1, 7, 7, 3, 3, 3, 7, 7, 0, 0},
         {1, 7, 7, 7, 7, 7, 0, 0, 0, 0},
         {0, 7, 7, 0, 0, 0, 0, 0, 0, 0},
-        {0, 7, 7, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 
     int SS2[10][10]={
@@ -305,8 +308,8 @@ void drawSpaceship(uint8_t x, uint8_t y, uint8_t c_direction, uint8_t c_array){
         {1, 7, 7, 3, 7, 7, 7, 7, 0, 0},
         {7, 7, 7, 7, 3, 7, 7, 7, 0, 0},
         {7, 7, 0, 7, 7, 7, 7, 7, 7, 0},
-        {0, 0, 0, 0, 0, 0, 0, 7, 7, 7},
-        {0, 0, 0, 0, 0, 0, 0, 0, 7, 7},
+        {0, 0, 0, 0, 0, 0, 0, 7, 7, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 
     int SS3[10][10]={
@@ -469,6 +472,7 @@ void drawSpaceship(uint8_t x, uint8_t y, uint8_t c_direction, uint8_t c_array){
         }
     }
 
+    bgcolor(0);
 }
 
 
