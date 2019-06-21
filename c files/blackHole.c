@@ -2,19 +2,47 @@
 #include "directional.h"
 #include "shipcontrol.h"
 #include "blackhole.h"
+#include "stdio.h"
+#include "stdint.h"
 
-void blackHole_ship(REF_P *ship_P, VECTOR *ship_V){
-    int r = 50;
+void blackHole(REF_P *ship_P, REF_P *ship_V){
+    int r = 20; // Outer radius of black hole
+    int r1 = 12; // Inner radius
+    int r2 = 3; // Death zone
+
     REF_P hole;
-    hole.x = 50;
-    hole.y = -25;
+    hole.x = 200; // x-coordinate
+    hole.y = 40; // y-coordinate
 
-    int32_t eval = power((*ship_P).x - hole.x, 2) + power((*ship_P).y - hole.y, 2);
-    if (power(r, 2) >= eval){
-            (*ship_P).x = (*ship_P).x + (hole.x - (*ship_P).x);
-            (*ship_P).y = (*ship_P).y + (hole.y - (*ship_P).y);
+    int32_t dx = (*ship_P).x - hole.x;
+    int32_t dy = (*ship_P).y - hole.y;
+    int32_t eval = dx*dx + dy*dy; // Distance from centrum
+
+    int32_t vx = (hole.x - (*ship_P).x); // Distance from object to centrum on x-axis
+    int32_t vy = (hole.y - (*ship_P).y); // Distance from object to centrum on y-axis
+
+    int x = 16; // Scaling of x-direction
+    int i = 3; // Scaling of y-dirrection in inner radius
+    int o = 15; // Scaling of y-dirrection in outer radius
+
+    if (r2 * r2 >= eval){ // Centrum
+            (*ship_V).x = 0;
+            (*ship_V).y = 0;
+    } else if (r1 * r1 >= eval){ // Inner radius
+            (*ship_V).x = (*ship_V).x + vx/x;
+            (*ship_V).y = (*ship_V).y + vy/i;
+    } else if (r*r >= eval){ // Outer radius
+            (*ship_V).x = (*ship_V).x + vx/x;
+            (*ship_V).y = (*ship_V).y + vy/o;
     }
 }
+
+//Use this to call above funktion
+/*  initVector(&ship_V, 8, 0);
+    initREF_P(&ship_P, 0, 55);
+    spdVAL = shipUpdate(spdVAL, &ship_V, &ship_P);
+    blackHole(&ship_P, &ship_V); */
+
 
 /*
 REF_P blackHole_projectile(REF_P projectile_P){
