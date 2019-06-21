@@ -2,5 +2,5 @@
 #include "vectors.h"
 #include "shipcontrol.h"
 
-void blackHole_ship(REF_P *ship_P, VECTOR *ship_V);
+void blackHole(REF_P *ship_P, REF_P *ship_V);
 REF_P blackHole_projectile(/*structure*/);
