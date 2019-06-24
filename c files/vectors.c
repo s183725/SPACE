@@ -17,15 +17,6 @@ typedef struct referencepoint {
 } REF_P;*/
 
 
-int8_t power(int32_t base, int32_t exp){  // power function for multiple uses
-    int8_t i, r = base;
-
-    for (i = 1; i < exp; i++) {
-        r *= base;
-    }
-    return(r);
-}
-
 void scaleMovingVector(VECTOR *v){ //scales rotating vector
     if(abs((*v).x) < 3){
         (*v).x = FIX14_MULT((*v).x,2);
@@ -103,14 +94,6 @@ VECTOR buildVector(){ //builds null vector for utility
     return v;
 }
 
-VECTOR cpyVector(VECTOR *v){ //Copies vector
-    VECTOR cpy;
-     cpy.x = (*v).x;
-     cpy.y = (*v).y;
-
-}
-
-
 /*
 int32_t accelVector(int32_t spdVAL, VECTOR *v, VECTOR *ship_SPD){  //returns vector and keeping direction vector intact
     //(*v).x = FIX14_MULT(((*v).x),accelVAL);
@@ -132,6 +115,23 @@ void rotateVector(VECTOR *v, int32_t angle) { //rotates a vector
 
     (*v).x = FIX14_MULT(x,cosV) - FIX14_MULT(y,sinV);
     (*v).y = FIX14_MULT(y,cosV) + (FIX14_MULT(x,sinV));
+}
+
+int32_t cpyVectorX(VECTOR *v){
+    int32_t x = (*v).x;
+    return x;
+}
+
+int32_t cpyVectorY(VECTOR *v){
+    int32_t y = (*v).y;
+    return y;
+}
+
+VECTOR cpyVector(VECTOR *v){
+    VECTOR cpy = *v;
+    cpy.x = (*v).x;
+    cpy.y = (*v).y;
+    return cpy;
 }
 
 VECTOR vectorP2P(int32_t p0x, int32_t p0y, int32_t p1x, int32_t p1y){

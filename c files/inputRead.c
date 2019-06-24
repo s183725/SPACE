@@ -3,15 +3,12 @@
 #include "inputRead.h"
 
 uint8_t rawIN(){
-    uint8_t ch;
-    ch = uart_get_char();
+    volatile uint8_t ch = uart_get_char();
     return ch;
 }
 
 uint8_t wasdIN(){
-    int8_t ch;
-
-    ch = rawIN();
+    uint8_t ch = rawIN();
 
     switch(ch)
     {
@@ -29,8 +26,7 @@ uint8_t wasdIN(){
 }
 
 uint8_t numIN(){
-    int8_t ch;
-    ch = rawIN();
+    uint8_t ch = rawIN();
 
     switch(ch)
     {
@@ -48,8 +44,7 @@ uint8_t numIN(){
 }
 
 uint8_t spaceIN(){
-    int8_t ch;
-    ch = rawIN();
+    uint8_t ch = rawIN();
 
     switch(ch)
     {

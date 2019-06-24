@@ -3,8 +3,8 @@
 #include "directional.h"
 
 int32_t turnVAL(){ // A and D input register
-    int32_t tVAL;
-     volatile uint8_t ch = uart_get_char();  // skal læser input fra A og D
+     int32_t tVAL;
+     uint8_t ch = rawIN();  // skal læser input fra A og D
 
     switch(ch) //at dreje moduret svarer til 1
     {
@@ -16,20 +16,6 @@ int32_t turnVAL(){ // A and D input register
         return tVAL = 0;
     }
 }
-
-int32_t wsVAL(){  // w and s key input
-    volatile uint8_t dir = rawIN();
-
-    switch(dir){
-    case 119:     // W
-        return 1;
-    case 115:   // S
-        return -1;
-    default:
-        return 0;
-    }
-}
-
 /*
 void rotVAL(int32_t turnVAL){
     int rVAL;
@@ -45,7 +31,7 @@ void rotVAL(int32_t turnVAL){
 }*/
 
 
-int32_t dirVAL(int32_t dVAL, int32_t tVAL){  // used for addition of input wASD
+int32_t dirVAL(int32_t dVAL, int8_t tVAL){  // used for addition of input wASD
 
     if (tVAL == 1) {
         dVAL = dVAL + 1;
@@ -100,7 +86,7 @@ void directionArray(int32_t turnVAL){
 */
 
 
-int32_t directionVector(int32_t dVAL, int32_t *vx, int32_t *vy){    // CASE STATEMENTS FFOR directionVEctor
+int32_t directionVector( int32_t dVAL, int32_t *vx, int32_t *vy){    // CASE STATEMENTS FFOR directionVEctor
 
     if(dVAL == 0) {
         *vx = 2;
@@ -152,24 +138,6 @@ int32_t directionVector(int32_t dVAL, int32_t *vx, int32_t *vy){    // CASE STAT
         *vy = -1;
     }
     return dVAL;
-}
-
-int32_t accelVAL(int32_t spdVAL, int32_t fwdVAL){ //Velocity constant functions
-
-    if (fwdVAL == 1) {
-        if(spdVAL > 1){
-            spdVAL = 2;
-        } else {
-            spdVAL = spdVAL + 1;
-         // Accounts for above radians
-        }
-    }
-
-    if (fwdVAL < 0){
-        spdVAL = 0;
-    }
-
-    return spdVAL;
 }
 
 
