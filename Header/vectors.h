@@ -1,14 +1,10 @@
 #include "sineLUT.h"
 #include "stdint.h"
 
-
 #ifndef _VECTORS_H_
 #define _VECTORS_H_
 
 #define FIX14_SHIFT 14
-
-
-
 
 typedef struct vectorS {
     int32_t x, y;
@@ -17,6 +13,10 @@ typedef struct vectorS {
 typedef struct referencepoint {
     int32_t x, y;
 } REF_P;
+
+int32_t cpyVectorX(VECTOR *v);
+
+int32_t cpyVectorY(VECTOR *v);
 
 void scaleVector(VECTOR *v);
 
@@ -33,6 +33,9 @@ void rotateVector(VECTOR *v, int32_t angle);
 void accelVector(int32_t spdVAL, VECTOR *v, VECTOR *ship_SPD);
 void updateREF_P(VECTOR *v, REF_P *p);
 int32_t vectorlength(VECTOR *v);
+int32_t cpyVectorX(VECTOR *v);
+int32_t cpyVectorY(VECTOR *v);
+VECTOR cpyVector(VECTOR *v);
 
 #endif /* _VECTORS_H_ */
 
