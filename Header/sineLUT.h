@@ -5,6 +5,7 @@
 //
 // =====================================================================
 
+
 #ifndef SINELUT_H
 #define SINELUT_H
 
@@ -14,4 +15,4 @@
 // === LUT DECLARATIONS ===
 extern const signed short SIN[512];
 
-#endif	// SINELUT_H
+#endif	// SINELUT_H_
