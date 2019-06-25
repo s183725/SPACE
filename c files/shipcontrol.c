@@ -7,40 +7,24 @@
 
 int32_t moveShip(int32_t spdVAL, int32_t *vx, int32_t *vy, int32_t *px, int32_t *py){ //determintes new position of ship coordinates px and py
 
-
-   // (*ship_P).x = FIX14_MULT((*ship_V).x, spdVAL) + (*ship_P).x;
-   // (*ship_P).y = FIX14_MULT((*ship_V).y, spdVAL) + (*ship_P).y;
     if (spdVAL == 1){
         *px = (*vx) + *px;
         *py = (*vy) + *py;
     } else if (spdVAL > 1)  {
         *px = ((*vx) << spdVAL) + *px;
         *py = ((*vy) << spdVAL) + *py;
-    } else if (spdVAL < 1){
-        *px = ((*vx) >> 2) + *px;
-        *py = ((*vy) >> 2) + *py;
+    } else if (spdVAL == 0){
+        *px = *px;
+        *py = *py;
     }
 
     return spdVAL;
 }
 
- int32_t wsVAL(){  // w and s key input
-     int32_t fVAL;
-     uint8_t dir = rawIN();
-
-    switch(dir){
-    case 119:     // W
-        return fVAL = 1;
-    case 115:   // S
-        return fVAL = -1;
-    default:
-        return 0;
-    }
-}
 
  int32_t accelVAL( int32_t spdVAL, int8_t fwdVAL){ //Velocity constant functions
 
-    if(fwdVAL == 1) {
+    if(fwdVAL > 0) {
         if(spdVAL > 1){
             spdVAL = 2;
         } else {
@@ -49,8 +33,10 @@ int32_t moveShip(int32_t spdVAL, int32_t *vx, int32_t *vy, int32_t *px, int32_t 
         }
     }
 
-    if (fwdVAL == -1){
+    if (fwdVAL < 0){
         spdVAL = 0;
+    } else if(fwdVAL == 0){
+        spdVAL = spdVAL;
     }
 
     return spdVAL;
@@ -67,9 +53,10 @@ int32_t shipUpdate(int32_t spdVAL, VECTOR *ship_V, REF_P *ship_P, uint8_t IN){ /
 
     if(IN == 119){
         fwdVAL = 1;
-    } else if (115) {
+    } else if (IN == 115) {
         fwdVAL = -1;
     }
+
     spdVAL = accelVAL(spdVAL, fwdVAL);
     spdVAL = moveShip(spdVAL, &vx, &vy, &px, &py);
 
